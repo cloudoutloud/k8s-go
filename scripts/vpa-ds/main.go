@@ -44,24 +44,16 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error listing DaemonSets: %s", err.Error())
 	}
-
-	// for _, ds := range daemonSets.Items {
-	// 	if ds.Name != "node-local-dns" {
-	// 		continue
-	// 	}
-	// 	fmt.Printf("ds Name: %s \n",
-	// 		ds.Name)
-	// }
+	if len(daemonSets.Items) == 0 {
+		fmt.Println("No DaemonSets found in the cluster. Exiting.")
+		os.Exit(0)
+	}
 
 	for _, ds := range daemonSets.Items {
 		// Skip DaemonSets in the kube-system namespace or any other specified namespace
 		if ds.Namespace == "kube-system" || ds.Namespace == "namespace-to-exclude" {
 			continue
 		}
-
-		// if ds.Name != "csi-gcs" {
-		// 	continue
-		// }
 
 		// Create a VPA resource for the DaemonSet
 		updateMode := autoscalingv1.UpdateModeOff

@@ -42,7 +42,11 @@ func main() {
 	// List all StatefulSet in all namespaces except kube-system
 	statefulsets, err := clientset.AppsV1().StatefulSets("").List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
-		log.Fatalf("Error listing Deployment: %s", err.Error())
+		log.Fatalf("Error listing StatefulSets: %s", err.Error())
+	}
+	if len(statefulsets.Items) == 0 {
+		fmt.Println("No statefulsets found in the cluster. Exiting.")
+		os.Exit(0)
 	}
 
 	for _, sts := range statefulsets.Items {
