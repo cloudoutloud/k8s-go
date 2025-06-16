@@ -44,6 +44,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error listing Deployment: %s", err.Error())
 	}
+	if len(deployments.Items) == 0 {
+		fmt.Println("No deployments found in the cluster. Exiting.")
+		os.Exit(0)
+	}
 
 	for _, deploy := range deployments.Items {
 		// Skip deployments in the kube-system namespace or any other specified namespace
