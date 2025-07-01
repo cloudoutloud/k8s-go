@@ -25,3 +25,7 @@ Iterate over daemonsets in cluster and create a Virtual pod autoscaling resource
 - vpa-sts
 
 Iterate over daemonsets in cluster and create a Virtual pod autoscaling resource (VPA) in update mode off.
+
+- secret-migrtaion
+
+Copy secrets with certain prefix across same namespace in two different cluster.
